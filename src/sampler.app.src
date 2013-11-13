@@ -1,0 +1,11 @@
+{application, sampler,
+ [
+  {description, "Provide statistical sampling. Currently Alias Method Only."},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {env, []}
+ ]}.
