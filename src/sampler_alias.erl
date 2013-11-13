@@ -6,7 +6,7 @@
 %%   3) https://hips.seas.harvard.edu/blog/2013/03/03/the-alias-method-efficient-sampling-with-many-discrete-outcomes/
 %%
 
--module(alias_sampler).
+-module(sampler_alias).
 -behaviour(gen_server).
 
 %% gen_server callbacks
@@ -205,7 +205,7 @@ select(#alias{len = N, keys = K, alias = A, probs = Pr}) ->
 -define(SAMPLE, 10000).
 
 create_and_sample_results(WeightedList) ->
-    {ok, Sampler} = alias_sampler:start_link(WeightedList),
+    {ok, Sampler} = sampler_alias:start_link(WeightedList),
     draw_n_samples(Sampler, ?SAMPLE).
 
 
@@ -258,13 +258,13 @@ update_and_find_weight_test() ->
 run_proper_test_() ->
     { %% Timeout proper after 5 min
       timeout, 360,
-      ?_assertEqual([], proper:module(alias_sampler, [{to_file, user}]))
+      ?_assertEqual([], proper:module(sampler_alias, [{to_file, user}]))
     }.
 
 
 %% draw n times
 draw_n_samples(Pid, N) ->
-    Samples = [alias_sampler:draw(Pid) || _ <- lists:seq(1, N)],
+    Samples = [sampler_alias:draw(Pid) || _ <- lists:seq(1, N)],
     Aggregate = lists:foldl(
                   fun(V, D) -> dict:update_counter(V, 1, D) end,
                   dict:new(),
@@ -274,9 +274,9 @@ draw_n_samples(Pid, N) ->
 
 
 draw_and_check(Weights, Seed) ->
-    {ok, Sampler} = alias_sampler:start_link(Weights, Seed),
+    {ok, Sampler} = sampler_alias:start_link(Weights, Seed),
     NoDuplicateWeights = orddict:from_list(Weights),
-    Probabilities = alias_sampler:draw_n_samples(Sampler, ?SAMPLE),
+    Probabilities = sampler_alias:draw_n_samples(Sampler, ?SAMPLE),
     SumWeights = lists:foldl(fun ({_, W}, Acc) ->  W + Acc end,
                              0, NoDuplicateWeights),
 
@@ -301,12 +301,12 @@ prop_sample() ->
 
 
 prop_set_weight() ->
-    {ok, Pid} = alias_sampler:start_link([{foo, 1}]),
+    {ok, Pid} = sampler_alias:start_link([{foo, 1}]),
     ?FORALL(Weight, weight(),
             begin
                 {Key, Value} = Weight,
-                ok = alias_sampler:set_weight(Key, Value, Pid),
-                Value =:= alias_sampler:get_weight(Key, Pid)
+                ok = sampler_alias:set_weight(Key, Value, Pid),
+                Value =:= sampler_alias:get_weight(Key, Pid)
             end).
 
 -endif.
