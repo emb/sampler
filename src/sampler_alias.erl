@@ -20,7 +20,6 @@
 -export([draw/1]).
 
 -ifdef(TEST).
--compile(export_all).
 -include_lib("proper/include/proper.hrl").
 -include_lib("eunit/include/eunit.hrl").
 -endif.
@@ -264,7 +263,7 @@ run_proper_test_() ->
 
 %% draw n times
 draw_n_samples(Pid, N) ->
-    Samples = [sampler_alias:draw(Pid) || _ <- lists:seq(1, N)],
+    Samples = [draw(Pid) || _ <- lists:seq(1, N)],
     Aggregate = lists:foldl(
                   fun(V, D) -> dict:update_counter(V, 1, D) end,
                   dict:new(),
@@ -274,9 +273,9 @@ draw_n_samples(Pid, N) ->
 
 
 draw_and_check(Weights, Seed) ->
-    {ok, Sampler} = sampler_alias:start_link(Weights, Seed),
+    {ok, Sampler} = start_link(Weights, Seed),
     NoDuplicateWeights = orddict:from_list(Weights),
-    Probabilities = sampler_alias:draw_n_samples(Sampler, ?SAMPLE),
+    Probabilities = draw_n_samples(Sampler, ?SAMPLE),
     SumWeights = lists:foldl(fun ({_, W}, Acc) ->  W + Acc end,
                              0, NoDuplicateWeights),
 
