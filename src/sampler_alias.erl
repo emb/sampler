@@ -38,7 +38,7 @@
 
 %% API
 
--spec start_link([weight()]) -> pid().
+-spec start_link([weight()]) -> {ok, pid()}.
 start_link(WeightedList) ->
     start_link(WeightedList, os:timestamp()).
 
