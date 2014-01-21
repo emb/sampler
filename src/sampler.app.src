@@ -2,6 +2,7 @@
  [
   {description, "Provide statistical sampling. Currently Alias Method Only."},
   {vsn, "0.1.0"},
+  {modules, []},
   {registered, []},
   {applications, [
                   kernel,
