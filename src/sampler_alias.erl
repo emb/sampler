@@ -78,7 +78,7 @@ draw(Pid) ->
 %% gen_server callbacks
 
 init([WeightedList, Seed]) ->
-    random:seed(Seed),
+    _ = random:seed(Seed),
     {ok, make_alias(WeightedList)}.
 
 
