@@ -26,10 +26,10 @@
 
 -record(alias, {
           len     :: non_neg_integer(),
-          keys    :: array(),
+          keys    :: array:array(),
           weights :: orddict:orddict(),
-          alias   :: array(),
-          probs   :: array()
+          alias   :: array:array(),
+          probs   :: array:array()
          }).
 
 -type alias_vectors() :: #alias{}.
