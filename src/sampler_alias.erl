@@ -287,10 +287,15 @@ draw_and_check(Weights, Seed) ->
 
     [{K, P, Test(K, P)} || {K, P} <- Probabilities].
 
+%% KLUDGE: Not sure why, by the native timestamp doesn't work in 17.0+.
+%% See issue raised at https://github.com/manopapad/proper/issues/94.
+-type timestamp() :: {MegaSecs :: non_neg_integer(),
+                      Secs :: non_neg_integer(),
+                      MicroSecs :: non_neg_integer()}.
 
 prop_sample() ->
     %% Ensure we always have a positive sum of weights.
-    ?FORALL({Weights, Seed}, {non_empty(list({atom(), pos_integer()})), erlang:timestamp()},
+    ?FORALL({Weights, Seed}, {non_empty(list({atom(), pos_integer()})), timestamp()},
            begin
                Probs = draw_and_check(Weights, Seed),
                Check = fun ({_, _, Test}, Acc) -> Test and Acc end,
