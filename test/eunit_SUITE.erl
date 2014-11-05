@@ -17,4 +17,4 @@ run_eunit(_Config) ->
     LibDir = code:lib_dir(?APP),
     Modules = [ list_to_atom(filename:basename(F, ".beam"))
                 || F <- filelib:wildcard(filename:join([LibDir, "ebin", "*.beam"])) ],
-    ok = eunit:test(Modules, [verbose]).
+    ok = eunit:test(Modules, [verbose, {report, {eunit_surefire, [{dir, "."}]}}]).
