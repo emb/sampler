@@ -1,0 +1,9 @@
+language: erlang
+notifications:
+  email:
+    - be.dmitry@gmail.com
+    - ed.barwani@gmail.com
+    - daniel@whitehouse.id.au
+otp_release:
+  - 17.4
+script: "make V=1 tests"
