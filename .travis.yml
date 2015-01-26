@@ -5,5 +5,5 @@ notifications:
     - ed.barwani@gmail.com
     - daniel@whitehouse.id.au
 otp_release:
-  - 17.4
+  - 17.3
 script: "make V=1 tests"
