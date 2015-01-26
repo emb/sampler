@@ -1,0 +1,23 @@
+# Erlang generated files
+*.beam
+ebin/
+*_crash.dump
+
+# Logs
+logs/
+
+# Deps
+deps/
+# erlang.mk package file
+.erlang.mk.packages.v2
+
+# Docs
+doc/*.html
+doc/*.css
+doc/*.png
+doc/edoc-info
+
+# Dialyzer plt file
+.sampler.plt
+
+
