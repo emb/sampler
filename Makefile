@@ -1,2 +1,4 @@
-include $(PCP_TOP)/make/common.mk
-include $(PCP_TOP)/make/erlang.mk
+PROJECT=sampler
+TEST_DEPS=proper
+
+include erlang.mk
