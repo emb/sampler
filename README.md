@@ -1,4 +1,6 @@
-# README
+[![Build Status](https://travis-ci.org/emb/sampler.svg)](https://travis-ci.org/emb/sampler)
+
+# Sampler
 
 This is an erlang application that will potentially provide various
 methods of sampling a population.
